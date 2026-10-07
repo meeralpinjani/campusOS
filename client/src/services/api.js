@@ -4,7 +4,8 @@
  * and refresh token rotation logic.
  */
 
-const API_BASE_URL = '/api';
+const rawBaseUrl = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace(/\/$/, '') : '/api';
+const API_BASE_URL = rawBaseUrl.endsWith('/api') || rawBaseUrl === '/api' ? rawBaseUrl : `${rawBaseUrl}/api`;
 
 export const getStoredTokens = () => ({
   accessToken: localStorage.getItem('cc_access_token'),
