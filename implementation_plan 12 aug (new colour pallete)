@@ -1,0 +1,124 @@
+# Minimalist Monochrome Design System Implementation Plan
+
+This plan outlines the complete conversion of both Light and Dark modes in KITCommunity to the **Minimalist Monochrome** design system, featuring a single muted red accent (`#C43E3E`), an enlarged navigation bar, and strict preservation of specified brand/calendar elements.
+
+## Design System Guidelines
+
+### Color System
+- **Light Mode**:
+  - Main Background: Pure white (`#FFFFFF`)
+  - Panels / Sidebar: Off-white (`#FAFAFA`)
+  - Primary Text: Near-black charcoal (`#111111`)
+  - Secondary/Muted Text: Mid-gray (`#6B6B6B`)
+  - Borders & Dividers: Thin hairlines in light gray (`#E5E5E5`)
+  - Disabled / Placeholder Text: Light gray (`#B0B0B0`)
+- **Dark Mode**:
+  - Main Background: True charcoal-black (`#111214`)
+  - Panels / Sidebar / Cards: Charcoal panel background (`#1A1B1E`)
+  - Primary Text: Off-white (`#F5F5F5`)
+  - Secondary/Muted Text: Mid-gray (`#9A9A9A`)
+  - Borders & Dividers: Thin hairlines in dark gray (`#2A2A2C`)
+  - Disabled / Placeholder Text: Dark gray (`#555558`)
+- **Single Accent Color**:
+  - Muted Red (`#C43E3E`) — used ONLY for active nav tab underline/indicator, primary buttons (`+ Post`, `Sell An Item`, `Continue`, `Send`), unread badges, and `OFFICIAL CAMPUS NOTICE` banner accent.
+  - All blue/indigo/sky/purple tones across buttons, tabs, links, and badges are replaced with this monochrome grayscale + red accent system.
+
+### Component & Typography Standards
+- **Typography**: Clean sans-serif (Inter / system-ui), max 3 font sizes per screen, hierarchy driven by font weight and size rather than text color.
+- **Buttons**: Primary screen action uses solid Muted Red (`#C43E3E`). Secondary buttons use solid black (`#111111` light mode) / solid white (`#FFFFFF` dark mode) or subtle hairline borders (`#E5E5E5` / `#2A2A2C`).
+- **Cards**: Flat white or dark-gray cards with 1px hairline border (`#E5E5E5` / `#2A2A2C`), minimal rounded corners (6–10px), no heavy box-shadows.
+- **Icons**: Single-weight line icons, grayscale only.
+- **Role Badges**: Outlined pill badges in monochrome for Student, Faculty, and Moderator; Muted Red outlined pill for Admin (`border border-red-500/30 text-[#C43E3E] bg-red-50 dark:bg-red-950/30`).
+- **Enlarged Navigation Bar**: Increased height (`py-4 px-6 lg:px-8`), larger logo image (`h-11` to `h-12`), larger text and search input.
+
+### DO NOT CHANGE Requirements
+1. **KIT College of Engineering, Kolhapur logo**: Keep pixel-identical, full original color in both light and dark mode.
+2. **Academic Calendar table internal cell colors**: Yellow, olive green, sky blue, pink date cells and the green "LIVE ACTIVE CALENDAR" badge remain unchanged. Only surrounding chrome adopts monochrome styling.
+
+---
+
+## Proposed Changes
+
+### Global Styles & Theme Tokens
+
+#### [MODIFY] [index.css](file:///e:/Campus%20Connect%20%28Community%29-%20Antigravity/client/src/index.css)
+- Define `@theme` color tokens for `#111111`, `#FAFAFA`, `#FFFFFF`, `#6B6B6B`, `#E5E5E5`, `#111214`, `#1A1B1E`, `#F5F5F5`, `#9A9A9A`, `#2A2A2C`, `#C43E3E`.
+- Update `body` and `html.dark body` background/text rules to `#FFFFFF` / `#111214`.
+- Set scrollbar styles to monochrome tokens.
+
+#### [MODIFY] [App.css](file:///e:/Campus%20Connect%20%28Community%29-%20Antigravity/client/src/App.css)
+- Replace accent CSS variables with monochrome & muted red values.
+
+---
+
+### Components
+
+#### [MODIFY] [Navbar.jsx](file:///e:/Campus%20Connect%20%28Community%29-%20Antigravity/client/src/components/Navbar.jsx)
+- Increase container vertical padding (`py-4 px-6 lg:px-8`) and logo size (`h-11 sm:h-12`).
+- Update module tabs (Feed, Marketplace, Academic Calendar) to black/white pills or red underline indicators.
+- Update Search input with `#FAFAFA` / `#1A1B1E` background and `#E5E5E5` / `#2A2A2C` hairline border.
+- Restyle role badges: Admin in red accent, others in monochrome outline.
+
+#### [MODIFY] [ChannelSidebar.jsx](file:///e:/Campus%20Connect%20%28Community%29-%20Antigravity/client/src/components/ChannelSidebar.jsx)
+- Update panel background to `#FAFAFA` (light) / `#1A1B1E` (dark) with `#E5E5E5` / `#2A2A2C` hairline border.
+- Active channel item styled with grayscale fill and left red accent border.
+- "+ Community" button in monochrome hairline styling.
+
+#### [MODIFY] [FeedSortTabs.jsx](file:///e:/Campus%20Connect%20%28Community%29-%20Antigravity/client/src/components/FeedSortTabs.jsx)
+- Update container and tab buttons. Active tab styled as solid black (light mode) / solid white (dark mode) pill.
+
+#### [MODIFY] [PostCard.jsx](file:///e:/Campus%20Connect%20%28Community%29-%20Antigravity/client/src/components/PostCard.jsx)
+- Card background: `#FFFFFF` (light mode) / `#1A1B1E` (dark mode) with 1px border `#E5E5E5` / `#2A2A2C`.
+- "Official Campus Notice" banner accent: Muted red `#C43E3E`.
+- Left vote column: `#FAFAFA` / `#111214` with hairline border.
+- Role badges: Red accent for Admin, monochrome outline for others.
+- All blue links, tags, and icons converted to monochrome / red accent system.
+
+#### [MODIFY] [CommentSection.jsx](file:///e:/Campus%20Connect%20%28Community%29-%20Antigravity/client/src/components/CommentSection.jsx)
+- Send comment button styled with red accent `#C43E3E`.
+- Comment cards and inputs updated to monochrome tokens.
+
+#### [MODIFY] [CommentItem.jsx](file:///e:/Campus%20Connect%20%28Community%29-%20Antigravity/client/src/components/CommentItem.jsx)
+- Update role badges and upvote buttons to monochrome / red accent.
+
+#### [MODIFY] [ChatDrawer.jsx](file:///e:/Campus%20Connect%20%28Community%29-%20Antigravity/client/src/components/ChatDrawer.jsx)
+- Send message button styled with red accent `#C43E3E`.
+- Chat drawer panel, search input, and bubble styling updated to monochrome tokens.
+
+#### [MODIFY] Modals ([CreatePostModal.jsx](file:///e:/Campus%20Connect%20%28Community%29-%20Antigravity/client/src/components/CreatePostModal.jsx), [CreateListingModal.jsx](file:///e:/Campus%20Connect%20%28Community%29-%20Antigravity/client/src/components/CreateListingModal.jsx), [CreateChannelModal.jsx](file:///e:/Campus%20Connect%20%28Community%29-%20Antigravity/client/src/components/CreateChannelModal.jsx), [CommunityRequestsModal.jsx](file:///e:/Campus%20Connect%20%28Community%29-%20Antigravity/client/src/components/CommunityRequestsModal.jsx), [NoticePdfGeneratorModal.jsx](file:///e:/Campus%20Connect%20%28Community%29-%20Antigravity/client/src/components/NoticePdfGeneratorModal.jsx), [NotificationDropdown.jsx](file:///e:/Campus%20Connect%20%28Community%29-%20Antigravity/client/src/components/NotificationDropdown.jsx), [PollWidget.jsx](file:///e:/Campus%20Connect%20%28Community%29-%20Antigravity/client/src/components/PollWidget.jsx), [PostDetailModal.jsx](file:///e:/Campus%20Connect%20%28Community%29-%20Antigravity/client/src/components/PostDetailModal.jsx), [UserProfileModal.jsx](file:///e:/Campus%20Connect%20%28Community%29-%20Antigravity/client/src/components/UserProfileModal.jsx))
+- Update modal containers, headers, inputs, buttons, and badges to monochrome design system with red accent primary buttons.
+
+---
+
+### Pages
+
+#### [MODIFY] [Home.jsx](file:///e:/Campus%20Connect%20%28Community%29-%20Antigravity/client/src/pages/Home.jsx)
+- Update "+ Post" button to red accent fill (`#C43E3E`).
+- Update feed container and right sidebar profile card to monochrome tokens.
+
+#### [MODIFY] [Marketplace.jsx](file:///e:/Campus%20Connect%20%28Community%29-%20Antigravity/client/src/pages/Marketplace.jsx)
+- Update "+ Sell An Item" button to red accent fill (`#C43E3E`).
+- Update category pills, search input, price tags, and listing cards to monochrome styling.
+
+#### [MODIFY] [AcademicCalendarPage.jsx](file:///e:/Campus%20Connect%20%28Community%29-%20Antigravity/client/src/pages/AcademicCalendarPage.jsx)
+- Update surrounding page chrome (header, control buttons, table outer borders) to monochrome tokens.
+- **Strictly preserve** internal table cell color mappings (`bg-[#FFD700]`, `bg-[#6B8E23]`, `bg-[#4682B4]`, `bg-[#FF1493]`) and the green "LIVE ACTIVE CALENDAR" badge.
+
+#### [MODIFY] [Login.jsx](file:///e:/Campus%20Connect%20%28Community%29-%20Antigravity/client/src/pages/Login.jsx) & [Signup.jsx](file:///e:/Campus%20Connect%20%28Community%29-%20Antigravity/client/src/pages/Signup.jsx)
+- Top accent bar in red accent (`#C43E3E`).
+- Primary action buttons ("Sign In", "Continue") in red accent fill.
+- Inputs and backgrounds updated to monochrome tokens.
+
+---
+
+## Verification Plan
+
+### Automated Verification
+- Verify Vite frontend builds without any compilation errors: `npm run build` in `client`.
+
+### Manual Verification
+- Verify both Light Mode (`#FFFFFF` background, `#111111` text, `#FAFAFA` panels, `#E5E5E5` borders) and Dark Mode (`#111214` background, `#F5F5F5` text, `#1A1B1E` panels, `#2A2A2C` borders) in browser.
+- Verify Navbar height is enlarged with increased logo size and crisp alignment.
+- Verify single muted red accent (`#C43E3E`) is used on nav tab active underline, "+ Post", "Sell An Item", "Continue", Send buttons, unread badges, and notice banner.
+- Verify KIT official logo in navbar and calendar is full color original orange mark.
+- Verify Academic Calendar data cells retain their semantic yellow, green, blue, and pink colors.
