@@ -54,9 +54,13 @@ app.use('/api/community-requests', require('./routes/communityRequestRoutes'));
 app.use('/api/academic-calendar', require('./routes/academicCalendarRoutes'));
 app.use('/api/polls', require('./routes/pollRoutes'));
 
-// Health Check Endpoint
-app.get('/api/health', (req, res) => {
-  res.status(200).json({ status: 'ok', service: 'KITCommunity Server', timestamp: new Date() });
+// Health Check Endpoints (for monitoring tools like UptimeRobot)
+app.all(['/health', '/api/health'], (req, res) => {
+  res.status(200).json({
+    status: 'ok',
+    service: 'KITCommunity Server',
+    timestamp: new Date().toISOString()
+  });
 });
 
 // 404 Route Handler
